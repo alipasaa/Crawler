@@ -53,7 +53,7 @@ public class ProductScraper {
 
     private List<WebElement> extractProducts() {
         logger.info("Waiting for product list to become visible..");
-        By selector = By.cssSelector(".min-h-screen > ol > div");
+        By selector = By.cssSelector(".min-h-screen > .grid > .flex.flex-col.gap-2.relative.px-3");
         new WebDriverWait(this.driver, Duration.ofSeconds(3))
             .until(ExpectedConditions.visibilityOfElementLocated(selector));
         return this.driver.findElements(selector);
@@ -79,7 +79,7 @@ public class ProductScraper {
 
     private String extractProductId(WebElement linkElement) {
         String targetURL = linkElement.getAttribute("href");
-        Matcher matcher = Pattern.compile("/p/(.*?)/").matcher(targetURL);
+        Matcher matcher = Pattern.compile("/p/(.*)/").matcher(targetURL);
         return matcher.find() ?  matcher.group(1) : null;
     }
 
